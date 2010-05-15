@@ -17,8 +17,8 @@ def show_or_exit(input):
 		message = "you pushed the spacebar " + str(score) + " times!"
 	txt.set_text(message)
 	score = score + 1
-
 fill = urwid.Filler(txt, 'top')
 loop = urwid.MainLoop(fill, unhandled_input=show_or_exit)
 loop.run()
 print "You didn't press space!"
+#YOU'RE THE NIGHT SURGEON!
