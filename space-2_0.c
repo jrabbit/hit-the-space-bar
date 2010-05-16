@@ -6,19 +6,19 @@
 #include <unistd.h>
 void nonblock(int state) {
     struct termios ttystate;
-    tcgetattr(STDIN_FILENO, &ttystate);
-    if (state==1) {
-	ttystate.c_lflag &= ~ICANON;
-	ttystate.c_cc[VMIN] = 1;
-    } else if (state==0) {
-	ttystate.c_lflag |= ICANON;
-    }
-    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);
-}
-int main(int argc, char *argv[]) {
-    uint32_t score = 0, x, y, in;
-    srand(time(NULL));
-    printf("\033[2J");
+    tcgetattr(STDIN_FILENO, &ttystate);             //            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+    if (state==1) {                                 //                    Version 2, December 2004
+	ttystate.c_lflag &= ~ICANON;                //
+	ttystate.c_cc[VMIN] = 1;                    // Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+    } else if (state==0) {                          //
+	ttystate.c_lflag |= ICANON;                 // Everyone is permitted to copy and distribute verbatim or modified
+    }                                               // copies of this license document, and changing it is allowed as long
+    tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);    // as the name is changed.
+}                                                   //
+int main(int argc, char *argv[]) {                  //            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+    uint32_t score = 0, x, y, in;                   //   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+    srand(time(NULL));                              //
+    printf("\033[2J");                              //  0. You just DO WHAT THE FUCK YOU WANT TO.
     nonblock(1);
     while (1) {
 	x = 1 + (int)( 50.0 * rand() / ( RAND_MAX + 1.0 ) );
