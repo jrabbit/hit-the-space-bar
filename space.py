@@ -4,7 +4,7 @@ import urwid
 txt = urwid.Text("push the spacebar!")
 #Should I even add physics?
 physics_fact=["f=ma","Vx=-9.8m/s^2 + V0*COSTheta"]
-score = 0
+score = 1
 #reddit meme goes here
 def show_or_exit(input):
 	global score
