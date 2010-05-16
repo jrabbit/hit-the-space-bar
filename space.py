@@ -21,4 +21,5 @@ fill = urwid.Filler(txt, 'top')
 loop = urwid.MainLoop(fill, unhandled_input=show_or_exit)
 loop.run()
 print "You didn't press space!"
+print "Score: " + str(score)
 #YOU'RE THE NIGHT SURGEON!
