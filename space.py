@@ -11,7 +11,7 @@ def show_or_exit(input):
 	if input != ' ':
 		# You didn't press space!
 		raise urwid.ExitMainLoop()
-	if score < 1:
+	if score < 2:
 		message = "you pushed the spacebar!"
 	else:
 		message = "you pushed the spacebar " + str(score) + " times!"
