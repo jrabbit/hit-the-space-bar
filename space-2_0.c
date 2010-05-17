@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {                  //            DO WHAT THE FU
 	y = 1 + (int)( 23.0 * rand() / ( RAND_MAX + 1.0 ) );
 	printf("\033[24;0H-----------------------------------------------------------------------------\nScore: %d         Vikings: %d\033[%d;%dHPress the [SPACE] key", score, vikings, y, x);
 	fflush(stdout);
-	in = fgetc(stdin); vikings += rand() > RAND_MAX / 4 ? 1 : 0;
+	in = fgetc(stdin); vikings += rand() < RAND_MAX / 4 ? 1 : 0;
 	if (in != ' ') {
 	    printf("\033[1;1H\033[2J\n          ____                         ___                 \n");
 	    printf("         / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __ \n");
