@@ -16,16 +16,16 @@ void nonblock(int state) {
     tcsetattr(STDIN_FILENO, TCSANOW, &ttystate);    // as the name is changed.
 }                                                   //
 int main(int argc, char *argv[]) {                  //            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-    uint32_t score = 0, x, y, in;                   //   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+    uint32_t score = 0, x, y, in, vikings = 0;      //   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
     srand(time(NULL));                              //
     printf("\033[2J");                              //  0. You just DO WHAT THE FUCK YOU WANT TO.
     nonblock(1);
     while (1) {
 	x = 1 + (int)( 50.0 * rand() / ( RAND_MAX + 1.0 ) );
 	y = 1 + (int)( 23.0 * rand() / ( RAND_MAX + 1.0 ) );
-	printf("\033[24;0H-----------------------------------------------------------------------------\nScore: %d\033[%d;%dHPress the [SPACE] key", score, y, x);
+	printf("\033[24;0H-----------------------------------------------------------------------------\nScore: %d         Vikings: %d\033[%d;%dHPress the [SPACE] key", score, vikings, y, x);
 	fflush(stdout);
-	in = fgetc(stdin);
+	in = fgetc(stdin); vikings += rand() > RAND_MAX / 4 ? 1 : 0;
 	if (in != ' ') {
 	    printf("\033[1;1H\033[2J\n          ____                         ___                 \n");
 	    printf("         / ___| __ _ _ __ ___   ___   / _ \\__   _____ _ __ \n");
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {                  //            DO WHAT THE FU
 	    printf("        | |_| | (_| | | | | | |  __/ | |_| |\\ V /  __/ |   \n");
 	    printf("         \\____|\\__,_|_| |_| |_|\\___|  \\___/  \\_/ \\___|_|   \n");
 	    printf("\nYou did not hit the space key\n");
-	    printf("Final Score: %d\n", score);
+	    printf("Final Score: %d (Vikings: %d)\n", score, vikings);
 	    exit(0);
 	}
 	score++;
