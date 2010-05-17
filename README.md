@@ -6,7 +6,9 @@ ALL THIS AND MORE...
 
 Just run ``python space.py``
 
-Windows users: download [Python](http://www.python.org/download/releases/2.6.5/) (latest as of 2010-05-16) then ``python.exe space.py``
+Windows users: 
+Due to your OS not implementing POSIX a python core module termios doesn't function on your platform without some [serious magic.](http://www.cygwin.com/)
+download [Python](http://www.python.org/download/releases/2.6.5/) (latest as of 2010-05-16) then ``python.exe space.py`` in a cygwin terminal
 
 Space 2
 ======
