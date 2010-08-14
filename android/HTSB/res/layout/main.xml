@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+<TextView android:text="0 seconds" android:id="@+id/time" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center">
+
+<Button android:id="@+id/space" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Space" android:paddingBottom="50sp" android:paddingLeft="50sp" android:paddingRight="50sp" android:paddingTop="50sp"></Button>
+</LinearLayout>
+</LinearLayout>
