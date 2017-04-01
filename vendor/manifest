@@ -12,6 +12,38 @@
 			"repository": "https://github.com/go-martini/martini",
 			"revision": "22fa46961aabd2665cf3f1343b146d20028f5071",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/google/go-querystring/query",
+			"repository": "https://github.com/google/go-querystring",
+			"revision": "53e6ce116135b80d037921a7fdd5138cf32d7a8a",
+			"branch": "master",
+			"path": "/query"
+		},
+		{
+			"importpath": "github.com/levigross/grequests",
+			"repository": "https://github.com/levigross/grequests",
+			"revision": "48a10ca31a1f20c6c21f9bc0ce7a7c74030b8c79",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mattn/go-runewidth",
+			"repository": "https://github.com/mattn/go-runewidth",
+			"revision": "14207d285c6c197daabb5c9793d63e7af9ab2d50",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/nsf/termbox-go",
+			"repository": "https://github.com/nsf/termbox-go",
+			"revision": "7994c181db7761ca3c67a217068cf31826113f5f",
+			"branch": "master"
+		},
+		{
+			"importpath": "golang.org/x/net/publicsuffix",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "ffcf1bedda3b04ebb15a168a59800a73d6dc0f4d",
+			"branch": "master",
+			"path": "/publicsuffix"
 		}
 	]
 }
