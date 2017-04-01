@@ -6,29 +6,46 @@ import (
 	// "net/http"
 )
 
-func cleanup(score *int) {
+func upload_score(score int) {
+	return
+}
+
+func cleanup(score *int, scoreboard bool) {
 	fmt.Println("Thanks for playing!")
 	fmt.Println("Final Score: ", *score) // dereference the score
+	// fmt.Println("Wanna upload to the scoreboard?")
+	// var x string
+	// fmt.Scan(&x)
+	if scoreboard {
+		upload_score(*score)
+	}
+	// switch x {
+	// case "Y":
+	// 	fmt.Println("Ok uploading score")
+	// 	return
+	// case "N":
+	// 	return
+	// }
 }
 
 func main() {
-	fmt.Println("Welcome to hit the spacebar 2017 GOTY edition")
 	var score int
-
+	scoreboard := true // implying
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
 	}
-	defer cleanup(&score)
+	fmt.Println("Welcome to hit the spacebar 2017 GOTY edition")
+
+	defer cleanup(&score, scoreboard)
 	defer termbox.Close()
-	termbox.SetInputMode(termbox.InputAlt | termbox.InputMouse)
+	// termbox.SetInputMode(termbox.InputAlt | termbox.InputMouse)
 
 mainloop:
 	for {
 		switch ev := termbox.PollEvent(); ev.Type {
 		case termbox.EventKey:
 			if ev.Key == termbox.KeySpace {
-				// fmt.Println("Got spacebar!")
 				score += 1
 				fmt.Println("Your score: ", score)
 			} else {
