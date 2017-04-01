@@ -2,30 +2,32 @@ package main
 
 import (
 	"fmt"
+	"github.com/levigross/grequests"
 	"github.com/nsf/termbox-go"
-	// "net/http"
+	"log"
 )
 
 func upload_score(score int) {
-	return
+	// json := "{'score':5}"
+	ro := &grequests.RequestOptions{JSON: map[string]int{"score": score}}
+
+	resp, err := grequests.Post("http://httpbin.org/post", ro)
+	// You can modify the request by passing an optional RequestOptions struct
+
+	if err != nil {
+		log.Fatalln("Unable to make request: ", err)
+	}
+
+	fmt.Println(resp.String())
 }
 
 func cleanup(score *int, scoreboard bool) {
 	fmt.Println("Thanks for playing!")
 	fmt.Println("Final Score: ", *score) // dereference the score
-	// fmt.Println("Wanna upload to the scoreboard?")
-	// var x string
-	// fmt.Scan(&x)
+
 	if scoreboard {
 		upload_score(*score)
 	}
-	// switch x {
-	// case "Y":
-	// 	fmt.Println("Ok uploading score")
-	// 	return
-	// case "N":
-	// 	return
-	// }
 }
 
 func main() {
@@ -39,7 +41,6 @@ func main() {
 
 	defer cleanup(&score, scoreboard)
 	defer termbox.Close()
-	// termbox.SetInputMode(termbox.InputAlt | termbox.InputMouse)
 
 mainloop:
 	for {
