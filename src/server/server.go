@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"github.com/go-martini/martini"
+	"net/http"
 )
 
 // func main() {
@@ -13,11 +15,22 @@ import (
 // }
 
 func root() string {
-	return "Hello World"
+	return "<h1>Hit the spacebar scoreboard server</h1>"
+}
+
+func scoreboard() string {
+	return "<body><ol><li>JEB - 9001</li></ol></body>"
+}
+
+func postscore(req *http.Request) string {
+	fmt.Println(req)
+	return "OK"
 }
 
 func main() {
 	m := martini.Classic()
 	m.Get("/", root)
+	m.Get("/scoreboard", scoreboard)
+	m.Post("/scoreboard/submit", postscore)
 	m.Run()
 }
