@@ -2,18 +2,12 @@ package main
 
 import (
 	"fmt"
-	// "bufio"
-	// "os"
 	"github.com/nsf/termbox-go"
-
 )
-
 
 func main() {
 	fmt.Println("Welcome to hit the spacebar 2017 GOTY edition")
-	// var x string
-	// var score int
-	// scanner := bufio.NewScanner(os.Stdin)
+	var score int
 
 	err := termbox.Init()
 	if err != nil {
@@ -21,20 +15,18 @@ func main() {
 	}
 	defer termbox.Close()
 	termbox.SetInputMode(termbox.InputAlt | termbox.InputMouse)
-mainloop:
-	for{
-		return
-	}
 
-	// for scanner.Scan() {
-		
-	// 	x = scanner.Text()
-	// 	if x == " " {
-	// 		fmt.Println("space detected")
-	// 		score += 1
-	// 	} else {
-	// 		fmt.Println()
-	// 	}
-	// 	fmt.Println("your score:", score)
-	// }
+mainloop:
+	for {
+		switch ev := termbox.PollEvent(); ev.Type {
+		case termbox.EventKey:
+			if ev.Key == termbox.KeySpace {
+				fmt.Println("Got spacebar!")
+				score += 1
+				fmt.Println("Your score: ", score)
+			} else {
+				break mainloop
+			}
+		}
+	}
 }
