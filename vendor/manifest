@@ -14,6 +14,12 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "github.com/go-redis/redis",
+			"repository": "https://github.com/go-redis/redis",
+			"revision": "c86c158b1fcee2e639c0a1add3f631545d0d69ee",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/google/go-querystring/query",
 			"repository": "https://github.com/google/go-querystring",
 			"revision": "53e6ce116135b80d037921a7fdd5138cf32d7a8a",
