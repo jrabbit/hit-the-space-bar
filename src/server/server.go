@@ -5,6 +5,7 @@ import (
 	"github.com/go-martini/martini"
 	"github.com/go-redis/redis"
 	"net/http"
+	"os"
 )
 
 // func main() {
@@ -55,11 +56,19 @@ func postScore(req *http.Request) string {
 
 func main() {
 	m := martini.Classic()
-	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
+	redisURL := os.Getenv("REDIS_URL")
+	var client *redis.Client
+	if redisURL == "" {
+		client = redis.NewClient(&redis.Options{
+			Addr:     "localhost:6379",
+			Password: "", // no password set
+			DB:       0,  // use default DB
+		})
+	} else {
+		opt, _ := redis.ParseURL(redisURL)
+		client = redis.NewClient(opt)
+	}
+
 	pong, err := client.Ping().Result()
 	fmt.Println(pong, err)
 
