@@ -5,13 +5,15 @@ import (
 	"github.com/levigross/grequests"
 	"github.com/nsf/termbox-go"
 	"log"
+	"strconv"
 )
 
 func upload_score(score int) {
 	// json := "{'score':5}"
-	ro := &grequests.RequestOptions{JSON: map[string]int{"score": score}}
+	name := "JEB"
+	ro := &grequests.RequestOptions{Data: map[string]string{"score": strconv.Itoa(score), "name": name}}
 
-	resp, err := grequests.Post("http://httpbin.org/post", ro)
+	resp, err := grequests.Post("http://localhost:3000/scoreboard/submit", ro)
 	// You can modify the request by passing an optional RequestOptions struct
 
 	if err != nil {

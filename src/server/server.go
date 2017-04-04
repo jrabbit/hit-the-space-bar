@@ -6,6 +6,7 @@ import (
 	"github.com/go-redis/redis"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 // func main() {
@@ -29,7 +30,6 @@ func getBoard(client *redis.Client) map[string]int64 {
 			panic(err)
 		}
 		scores[iter.Val()] = ret
-		fmt.Println(iter.Val())
 	}
 	if err := iter.Err(); err != nil {
 		panic(err)
@@ -48,9 +48,18 @@ func scoreboard(client *redis.Client) string {
 	return lines
 }
 
-func postScore(req *http.Request) string {
-	form := req.PostForm
-	fmt.Println(form)
+func postScore(client *redis.Client, req *http.Request) string {
+	// form := req.PostForm
+	req.ParseForm()
+	fmt.Println(req.PostForm)
+	score, err := strconv.Atoi(req.FormValue("score")) // this is dangerous
+	if err != nil {
+		// so they probably didn't send a score here
+		panic(err)
+	}
+
+	resp := client.Set(req.FormValue("name"), score, 0)
+	fmt.Println(resp)
 	return "OK"
 }
 
