@@ -18,7 +18,7 @@ import (
 // }
 
 func root() string {
-	return "<h1>hit the spacebar 2017 GOTY edition/h1>"
+	return "<h1>hit the spacebar 2017 GOTY edition</h1>"
 }
 
 func getBoard(client *redis.Client) map[string]int64 {
