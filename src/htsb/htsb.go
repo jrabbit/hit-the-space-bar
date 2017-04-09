@@ -5,16 +5,28 @@ import (
 	"github.com/levigross/grequests"
 	"github.com/nsf/termbox-go"
 	"log"
+	"os"
 	"strconv"
+	"strings"
 )
 
-func upload_score(score int) {
-	// json := "{'score':5}"
-	name := "JEB"
-	ro := &grequests.RequestOptions{Data: map[string]string{"score": strconv.Itoa(score), "name": name}}
+func promptName() string {
+	var name string
+	fmt.Println("Whats your name?")
+	fmt.Scanln(&name)
+	name = strings.ToUpper(name)
+	return name
+}
 
-	resp, err := grequests.Post("http://localhost:3000/scoreboard/submit", ro)
-	// You can modify the request by passing an optional RequestOptions struct
+func uploadScore(score int) {
+	// TODO: Add name parsing/guessing/suggestions
+	name := promptName()
+	ro := &grequests.RequestOptions{Data: map[string]string{"score": strconv.Itoa(score), "name": name}}
+	scoreHost, ok := os.LookupEnv("HTSB_SCOREBOARD")
+	if !ok {
+		scoreHost = "https://htsb.herokuapp.com/"
+	}
+	resp, err := grequests.Post(scoreHost+"/scoreboard/submit", ro)
 
 	if err != nil {
 		log.Fatalln("Unable to make request: ", err)
@@ -28,7 +40,7 @@ func cleanup(score *int, scoreboard bool) {
 	fmt.Println("Final Score: ", *score) // dereference the score
 
 	if scoreboard {
-		upload_score(*score)
+		uploadScore(*score)
 	}
 }
 
