@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/go-martini/martini"
 	"github.com/go-redis/redis"
+	"html"
 	"net/http"
 	"os"
 	"strconv"
@@ -42,7 +43,8 @@ func scoreboard(client *redis.Client) string {
 	var lines string
 	lines = "<html><body><ol><li> JEB -  9001 </li>"
 	for key, value := range scores {
-		lines += fmt.Sprintf("<li> %s -  %d </li>", key, value)
+		safeHTML := html.EscapeString(key)
+		lines += fmt.Sprintf("<li> %s -  %d </li>", safeHTML, value)
 	}
 	lines += "</ol></body></html>"
 	return lines

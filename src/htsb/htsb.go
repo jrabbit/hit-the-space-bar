@@ -24,7 +24,7 @@ func uploadScore(score int) {
 	ro := &grequests.RequestOptions{Data: map[string]string{"score": strconv.Itoa(score), "name": name}}
 	scoreHost, ok := os.LookupEnv("HTSB_SCOREBOARD")
 	if !ok {
-		scoreHost = "https://htsb.herokuapp.com/"
+		scoreHost = "https://htsb.herokuapp.com"
 	}
 	resp, err := grequests.Post(scoreHost+"/scoreboard/submit", ro)
 
