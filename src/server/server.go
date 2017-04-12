@@ -24,13 +24,30 @@ func zScore(client *redis.Client) string {
 	}
 	var lines string
 	lines = "<html><body><ol><li> JEB -  9001 </li>"
-	for place, z := range vals {
+	for _, z := range vals {
 		safeHTML := html.EscapeString(z.Member.(string))
 		lines += fmt.Sprintf("<li> %s -  %d </li>", safeHTML, int(z.Score))
-		fmt.Println(place)
 	}
 	lines += "</ol></body></html>"
 	return lines
+}
+
+func jsonScore(client *redis.Client, ctx *macaron.Context) {
+	vals, err := client.ZRevRangeByScoreWithScores("scoreboard", redis.ZRangeBy{
+		Min: "-inf",
+		Max: "+inf",
+	}).Result()
+	if err != nil {
+		panic(err)
+	}
+	var scores []map[string]interface{}
+	// you can lead a :horse: to water but you can't make him drink
+	for _, z := range vals {
+		name := z.Member.(string)
+		score := int(z.Score)
+		scores = append(scores, map[string]interface{}{"name": name, "score": score})
+	}
+	ctx.JSON(200, &scores)
 }
 
 func postScore(client *redis.Client, req *http.Request) string {
@@ -68,6 +85,7 @@ func main() {
 	m.Map(client)
 	m.Get("/", index)
 	m.Get("/scoreboard", zScore)
+	m.Get("/json", jsonScore)
 	m.Post("/scoreboard/submit", postScore)
 	m.Run()
 }
