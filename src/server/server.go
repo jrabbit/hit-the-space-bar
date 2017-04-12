@@ -10,16 +10,8 @@ import (
 	"strconv"
 )
 
-// func main() {
-// 	fmt.Println("Hello!")
-// 	http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request) {
-// 		fmt.Fprintf(w, "Hello, %q", html.EscapeString(r.URL.Path))
-// 	})
-// 	log.Fatal(http.ListenAndServe(":8080", nil))
-// }
-
-func root() string {
-	return "<h1>hit the spacebar 2017 GOTY edition</h1>"
+func index(ctx *macaron.Context) {
+	ctx.HTML(200, "home")
 }
 
 func zScore(client *redis.Client) string {
@@ -72,9 +64,9 @@ func main() {
 
 	pong, err := client.Ping().Result()
 	fmt.Println(pong, err)
-
+	m.Use(macaron.Renderer())
 	m.Map(client)
-	m.Get("/", root)
+	m.Get("/", index)
 	m.Get("/scoreboard", zScore)
 	m.Post("/scoreboard/submit", postScore)
 	m.Run()
