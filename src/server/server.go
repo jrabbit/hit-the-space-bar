@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-martini/martini"
 	"github.com/go-redis/redis"
+	"gopkg.in/macaron.v1"
 	"html"
 	"net/http"
 	"os"
@@ -51,13 +51,12 @@ func postScore(client *redis.Client, req *http.Request) string {
 		panic(err)
 	}
 	resp := client.ZAdd("scoreboard", redis.Z{float64(score), req.FormValue("name")})
-	// resp := client.Set(req.FormValue("name"), score, 0)
 	fmt.Println(resp)
 	return "OK"
 }
 
 func main() {
-	m := martini.Classic()
+	m := macaron.Classic()
 	redisURL := os.Getenv("REDIS_URL")
 	var client *redis.Client
 	if redisURL == "" {
@@ -74,7 +73,6 @@ func main() {
 	pong, err := client.Ping().Result()
 	fmt.Println(pong, err)
 
-	// db := &client
 	m.Map(client)
 	m.Get("/", root)
 	m.Get("/scoreboard", zScore)

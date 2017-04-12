@@ -2,15 +2,21 @@
 	"version": 0,
 	"dependencies": [
 		{
+			"importpath": "github.com/Unknwon/com",
+			"repository": "https://github.com/Unknwon/com",
+			"revision": "0db4a625e949e956314d7d1adea9bf82384cc10c",
+			"branch": "master"
+		},
+		{
 			"importpath": "github.com/codegangsta/inject",
 			"repository": "https://github.com/codegangsta/inject",
 			"revision": "33e0aa1cb7c019ccc3fbe049a8262a6403d30504",
 			"branch": "master"
 		},
 		{
-			"importpath": "github.com/go-martini/martini",
-			"repository": "https://github.com/go-martini/martini",
-			"revision": "22fa46961aabd2665cf3f1343b146d20028f5071",
+			"importpath": "github.com/go-macaron/inject",
+			"repository": "https://github.com/go-macaron/inject",
+			"revision": "d8a0b8677191f4380287cfebd08e462217bac7ad",
 			"branch": "master"
 		},
 		{
@@ -45,11 +51,30 @@
 			"branch": "master"
 		},
 		{
+			"importpath": "golang.org/x/crypto/pbkdf2",
+			"repository": "https://go.googlesource.com/crypto",
+			"revision": "9ef620b9ca2f82b55030ffd4f41327fa9e77a92c",
+			"branch": "master",
+			"path": "/pbkdf2"
+		},
+		{
 			"importpath": "golang.org/x/net/publicsuffix",
 			"repository": "https://go.googlesource.com/net",
 			"revision": "ffcf1bedda3b04ebb15a168a59800a73d6dc0f4d",
 			"branch": "master",
 			"path": "/publicsuffix"
+		},
+		{
+			"importpath": "gopkg.in/ini.v1",
+			"repository": "https://gopkg.in/ini.v1",
+			"revision": "e7fea39b01aea8d5671f6858f0532f56e8bff3a5",
+			"branch": "master"
+		},
+		{
+			"importpath": "gopkg.in/macaron.v1",
+			"repository": "https://gopkg.in/macaron.v1",
+			"revision": "a325110f8b392bce3e5cdeb8c44bf98078ada3be",
+			"branch": "master"
 		}
 	]
 }
