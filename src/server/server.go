@@ -22,29 +22,20 @@ func root() string {
 	return "<h1>hit the spacebar 2017 GOTY edition</h1>"
 }
 
-func getBoard(client *redis.Client) map[string]int64 {
-	scores := make(map[string]int64)
-	iter := client.Scan(0, "", 0).Iterator()
-	for iter.Next() {
-		ret, err := client.Get(iter.Val()).Int64()
-		if err != nil {
-			panic(err)
-		}
-		scores[iter.Val()] = ret
-	}
-	if err := iter.Err(); err != nil {
+func zScore(client *redis.Client) string {
+	vals, err := client.ZRangeByScoreWithScores("scoreboard", redis.ZRangeBy{
+		Min: "-inf",
+		Max: "+inf",
+	}).Result()
+	if err != nil {
 		panic(err)
 	}
-	return scores
-}
-
-func scoreboard(client *redis.Client) string {
-	scores := getBoard(client)
 	var lines string
 	lines = "<html><body><ol><li> JEB -  9001 </li>"
-	for key, value := range scores {
-		safeHTML := html.EscapeString(key)
-		lines += fmt.Sprintf("<li> %s -  %d </li>", safeHTML, value)
+	for place, z := range vals {
+		safeHTML := html.EscapeString(z.Member.(string))
+		lines += fmt.Sprintf("<li> %s -  %d </li>", safeHTML, int(z.Score))
+		fmt.Println(place)
 	}
 	lines += "</ol></body></html>"
 	return lines
@@ -59,8 +50,8 @@ func postScore(client *redis.Client, req *http.Request) string {
 		// so they probably didn't send a score here
 		panic(err)
 	}
-
-	resp := client.Set(req.FormValue("name"), score, 0)
+	resp := client.ZAdd("scoreboard", redis.Z{float64(score), req.FormValue("name")})
+	// resp := client.Set(req.FormValue("name"), score, 0)
 	fmt.Println(resp)
 	return "OK"
 }
@@ -86,7 +77,7 @@ func main() {
 	// db := &client
 	m.Map(client)
 	m.Get("/", root)
-	m.Get("/scoreboard", scoreboard)
+	m.Get("/scoreboard", zScore)
 	m.Post("/scoreboard/submit", postScore)
 	m.Run()
 }
