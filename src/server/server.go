@@ -23,7 +23,7 @@ func root() string {
 }
 
 func zScore(client *redis.Client) string {
-	vals, err := client.ZRangeByScoreWithScores("scoreboard", redis.ZRangeBy{
+	vals, err := client.ZRevRangeByScoreWithScores("scoreboard", redis.ZRangeBy{
 		Min: "-inf",
 		Max: "+inf",
 	}).Result()
